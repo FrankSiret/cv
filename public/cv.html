@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frank Rodríguez Siret — CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ── Tokens ── */
+    :root {
+      --accent:       #7b2fbe;
+      --accent-dark:  #4a1080;
+      --accent-light: #9d4edd;
+      --accent-pale:  #f3eaff;
+      --text:         #1a0a2e;
+      --text-mid:     #3a2858;
+      --text-soft:    #7a60a0;
+      --border:       #d8c8f0;
+      --sidebar-bg:   #1a0a2e;
+      --mono:         'Space Mono', 'Courier New', monospace;
+      --sans:         'Inter', system-ui, sans-serif;
+    }
+
+    /* ── Page ── */
+    body {
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.45;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      html, body { width: 210mm; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-break { break-before: page; }
+    }
+
+    .document {
+      width: 210mm;
+      min-height: 297mm;
+      display: grid;
+      grid-template-columns: 62mm 1fr;
+      grid-template-rows: auto 1fr;
+    }
+
+    /* ══════════════════════════════════════
+       HEADER  (full width)
+    ══════════════════════════════════════ */
+    .header {
+      grid-column: 1 / -1;
+      background: var(--sidebar-bg);
+      color: #e8d8ff;
+      padding: 18px 22px 16px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 3px solid var(--accent-light);
+    }
+
+    .header__photo {
+      width: 68px;
+      height: 68px;
+      border-radius: 4px;
+      object-fit: cover;
+      border: 2px solid var(--accent-light);
+      flex-shrink: 0;
+    }
+
+    .header__info { flex: 1; }
+
+    .header__name {
+      font-family: var(--mono);
+      font-size: 16pt;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+    .header__name span { color: var(--accent-light); }
+
+    .header__title {
+      font-family: var(--mono);
+      font-size: 8pt;
+      color: var(--accent-light);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .header__contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-top: 8px;
+    }
+    .header__contact {
+      font-size: 7.5pt;
+      color: #b89cd8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .header__contact::before {
+      content: attr(data-icon);
+      font-size: 8pt;
+      opacity: 0.7;
+    }
+
+    /* ══════════════════════════════════════
+       SIDEBAR (left)
+    ══════════════════════════════════════ */
+    .sidebar {
+      background: var(--sidebar-bg);
+      color: #c8b4e8;
+      padding: 16px 14px;
+      border-right: 1px solid rgba(157,78,221,0.3);
+    }
+
+    /* ══════════════════════════════════════
+       MAIN (right)
+    ══════════════════════════════════════ */
+    .main {
+      background: #fff;
+      padding: 16px 18px;
+    }
+
+    /* ══════════════════════════════════════
+       SECTION TITLES
+    ══════════════════════════════════════ */
+    .sec-title {
+      font-family: var(--mono);
+      font-size: 6.5pt;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sec-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+    }
+
+    .sidebar .sec-title {
+      color: var(--accent-light);
+    }
+    .sidebar .sec-title::after { background: rgba(157,78,221,0.35); }
+
+    .main .sec-title {
+      color: var(--accent);
+    }
+    .main .sec-title::after { background: var(--border); }
+
+    .section { margin-bottom: 14px; }
+
+    /* ══════════════════════════════════════
+       SIDEBAR  —  PROFILE SUMMARY
+    ══════════════════════════════════════ */
+    .profile-text {
+      font-size: 7.5pt;
+      color: #a890c8;
+      line-height: 1.55;
+    }
+
+    /* ══════════════════════════════════════
+       SIDEBAR  —  SKILLS
+    ══════════════════════════════════════ */
+    .skills-group-label {
+      font-family: var(--mono);
+      font-size: 6pt;
+      color: var(--accent-light);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      margin-top: 8px;
+      opacity: 0.7;
+    }
+
+    .skill-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(157,78,221,0.12);
+      border: 1px solid rgba(157,78,221,0.22);
+      border-radius: 2px;
+      padding: 3px 7px;
+      margin-bottom: 4px;
+      font-family: var(--mono);
+      font-size: 7pt;
+      color: #d4b8f0;
+    }
+    .skill-chip.featured {
+      background: rgba(157,78,221,0.25);
+      border-color: rgba(157,78,221,0.45);
+      color: #e8d8ff;
+      font-weight: 700;
+    }
+    .skill-chip__meta {
+      font-size: 6pt;
+      color: #7a60a0;
+      display: flex;
+      gap: 4px;
+    }
+    .skill-chip.featured .skill-chip__meta { color: #b89cd8; }
+    .skill-chip__stars { color: var(--accent-light); }
+
+    /* ══════════════════════════════════════
+       SIDEBAR  —  EDUCATION
+    ══════════════════════════════════════ */
+    .edu-item { margin-bottom: 9px; }
+    .edu-degree {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: #e8d8ff;
+      line-height: 1.3;
+    }
+    .edu-inst {
+      font-size: 7pt;
+      color: var(--accent-light);
+      margin-top: 1px;
+    }
+    .edu-years {
+      font-size: 6.5pt;
+      color: #7a60a0;
+      font-family: var(--mono);
+      margin-top: 1px;
+    }
+    .edu-bullet {
+      font-size: 7pt;
+      color: #9070b8;
+      margin-top: 3px;
+      padding-left: 8px;
+      border-left: 1px solid rgba(157,78,221,0.3);
+      line-height: 1.45;
+    }
+
+    /* ══════════════════════════════════════
+       SIDEBAR  —  LANGUAGES
+    ══════════════════════════════════════ */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      font-size: 7.5pt;
+      color: #c8b4e8;
+    }
+    .lang-level {
+      font-size: 6.5pt;
+      color: var(--accent-light);
+      font-family: var(--mono);
+    }
+
+    /* ══════════════════════════════════════
+       SIDEBAR  —  INTERESTS
+    ══════════════════════════════════════ */
+    .interests-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .interest-tag {
+      background: rgba(157,78,221,0.12);
+      border: 1px solid rgba(157,78,221,0.22);
+      border-radius: 2px;
+      padding: 2px 7px;
+      font-size: 6.5pt;
+      color: #a890c8;
+      font-family: var(--mono);
+    }
+
+    /* ══════════════════════════════════════
+       MAIN  —  EXPERIENCE
+    ══════════════════════════════════════ */
+    .exp-item {
+      margin-bottom: 11px;
+      padding-left: 10px;
+      border-left: 2px solid var(--border);
+      position: relative;
+    }
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 3px;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .exp-title {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .exp-period {
+      font-family: var(--mono);
+      font-size: 6.5pt;
+      color: var(--text-soft);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .exp-company {
+      font-size: 7pt;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    .exp-bullets {
+      margin-top: 4px;
+    }
+    .exp-bullet {
+      font-size: 7.5pt;
+      color: var(--text-mid);
+      margin-bottom: 2px;
+      padding-left: 8px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .exp-bullet::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-light);
+      font-size: 6pt;
+      top: 1px;
+    }
+
+    .exp-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .tech-tag {
+      background: var(--accent-pale);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 1px 5px;
+      font-size: 6pt;
+      color: var(--accent-dark);
+      font-family: var(--mono);
+    }
+
+    /* ══════════════════════════════════════
+       MAIN  —  CERTIFICATES
+    ══════════════════════════════════════ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+    }
+    .cert-item {
+      background: var(--accent-pale);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 2px;
+      padding: 5px 8px;
+    }
+    .cert-title {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .cert-meta {
+      font-size: 6.5pt;
+      color: var(--accent);
+      font-family: var(--mono);
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════════
+       ICPC awards (within edu)
+    ══════════════════════════════════════ */
+    .icpc-wrap { margin-top: 4px; }
+    .icpc-title {
+      font-family: var(--mono);
+      font-size: 6pt;
+      color: var(--accent-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      opacity: 0.7;
+    }
+    .icpc-item {
+      font-size: 6.5pt;
+      color: #9070b8;
+      padding-left: 8px;
+      border-left: 1px solid rgba(157,78,221,0.3);
+      margin-bottom: 2px;
+      line-height: 1.4;
+    }
+    .icpc-gold { color: #c8a000; }
+  </style>
+</head>
+<body>
+<div class="document">
+
+  <!-- ═══════════════════════════════════
+       HEADER
+  ═══════════════════════════════════ -->
+  <header class="header">
+    <img class="header__photo" src="assets/img/perfil.jpg" alt="Frank Siret" />
+    <div class="header__info">
+      <div class="header__name">RODRÍGUEZ SIRET <span>FRANK</span></div>
+      <div class="header__title">Java Developer · Full Stack Engineer</div>
+      <div class="header__contacts">
+        <span class="header__contact" data-icon="📍">Barcelona, Spain</span>
+        <span class="header__contact" data-icon="✉">frank.siret@gmail.com</span>
+        <span class="header__contact" data-icon="🔗">linkedin.com/in/frank-siret</span>
+        <span class="header__contact" data-icon="⌥">github.com/FrankSiret</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════════ -->
+  <aside class="sidebar">
+
+    <!-- Profile -->
+    <div class="section">
+      <div class="sec-title">Profile</div>
+      <p class="profile-text">
+        Highly motivated software engineer with 5+ years of professional experience and a strong
+        background in <strong style="color:#c8b4e8">competitive programming</strong> and algorithmics.
+        Proficient in <strong style="color:#c8b4e8">Java / Spring Boot</strong>, <strong style="color:#c8b4e8">React / TypeScript</strong>,
+        and <strong style="color:#c8b4e8">C++</strong>. Deep understanding of OOP, Design Patterns,
+        and system architecture. Contributor to open-source academic platforms.
+      </p>
+    </div>
+
+    <!-- Core Skills -->
+    <div class="section">
+      <div class="sec-title">Skills</div>
+      <!-- <div class="skills-group-label">Core</div> -->
+
+      <div class="skill-chip featured">
+        Java
+        <div class="skill-chip__meta"><span>10+ yrs</span><span class="skill-chip__stars">★5</span></div>
+      </div>
+      <div class="skill-chip featured">
+        Spring Boot
+        <div class="skill-chip__meta"><span>6 yrs</span><span class="skill-chip__stars">★5</span></div>
+      </div>
+      <div class="skill-chip featured">
+        React
+        <div class="skill-chip__meta"><span>7 yrs</span><span class="skill-chip__stars">★5</span></div>
+      </div>
+      <div class="skill-chip featured">
+        TypeScript
+        <div class="skill-chip__meta"><span>7 yrs</span><span class="skill-chip__stars">★5</span></div>
+      </div>
+
+      <!-- <div class="skills-group-label">Frontend</div> -->
+      <!-- <div class="skill-chip">JavaScript<div class="skill-chip__meta"><span>9 yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+      <!-- <div class="skill-chip">HTML / CSS<div class="skill-chip__meta"><span>9 yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+      <!-- <div class="skill-chip">Sass<div class="skill-chip__meta"><span>6 yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+      <div class="skill-chip">Tailwind CSS<div class="skill-chip__meta"><span>3 yrs</span><span class="skill-chip__stars">★4</span></div></div>
+
+      <!-- <div class="skills-group-label">Systems &amp; Data</div> -->
+      <!-- <div class="skill-chip">C / C++<div class="skill-chip__meta"><span>10+ yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+      <div class="skill-chip">Database Design<div class="skill-chip__meta"><span>10+ yrs</span><span class="skill-chip__stars">★5</span></div></div>
+      <!-- <div class="skill-chip">PostgreSQL<div class="skill-chip__meta"><span>7 yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+      <!-- <div class="skill-chip">MySQL<div class="skill-chip__meta"><span>8 yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+
+      <!-- <div class="skills-group-label">Practices &amp; Tools</div> -->
+      <div class="skill-chip">Design Patterns<div class="skill-chip__meta"><span>7 yrs</span><span class="skill-chip__stars">★4</span></div></div>
+      <!-- <div class="skill-chip">Git / GitHub<div class="skill-chip__meta"><span>8 yrs</span><span class="skill-chip__stars">★5</span></div></div> -->
+      <div class="skill-chip">CI / CD<div class="skill-chip__meta"><span>4 yrs</span><span class="skill-chip__stars">★4</span></div></div>
+      <!-- <div class="skill-chip">Docker<div class="skill-chip__meta"><span></span><span class="skill-chip__stars">★4</span></div></div> -->
+      <div class="skill-chip">Node.js<div class="skill-chip__meta"><span>7 yrs</span><span class="skill-chip__stars">★4</span></div></div>
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+      <div class="sec-title">Education</div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Master's in Computer Science</div>
+        <div class="edu-inst">Harbour.Space University — Spain</div>
+        <div class="edu-years">May 2024 – Oct 2024</div>
+        <div class="edu-bullet">Graduate-level coursework covering advanced CS disciplines.</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor's in Computer Science</div>
+        <div class="edu-inst">Universidad de Oriente — Cuba</div>
+        <div class="edu-years">Sep 2014 – Jun 2019</div>
+        <div class="edu-bullet">
+          Gold Title &amp; Scientific Merit Award. Top graduate 2019 class.
+          Thesis on Information Retrieval.
+        </div>
+        <div class="icpc-wrap">
+          <div class="icpc-title">ICPC highlights</div>
+          <div class="icpc-item icpc-gold">★ 1st place — 6th ICPC Challenger (2018)</div>
+          <div class="icpc-item icpc-gold">★ 1st place — 5th ICPC Challenger (2017)</div>
+          <div class="icpc-item">14th — Caribbean Finals 2018</div>
+          <div class="icpc-item">13th — Caribbean Finals 2017</div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Graduated Courses</div>
+        <div class="edu-inst">Universidad de Oriente — Cuba</div>
+        <div class="edu-years">Jan 2020 – Jun 2021</div>
+        <div class="edu-bullet">
+          Mathematical foundations, programming languages, computer networks,
+          digital image processing.
+        </div>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="section">
+      <div class="sec-title">Languages</div>
+      <div class="lang-item">
+        <span>Spanish</span>
+        <span class="lang-level">C2 · Native</span>
+      </div>
+      <div class="lang-item">
+        <span>English</span>
+        <span class="lang-level">B2 · Professional</span>
+      </div>
+    </div>
+
+    <!-- Interests -->
+    <div class="section">
+      <div class="sec-title">Interests</div>
+      <div class="interests-wrap">
+        <span class="interest-tag">Music</span>
+        <span class="interest-tag">Coffee</span>
+        <span class="interest-tag">Travel</span>
+        <span class="interest-tag">Reading</span>
+        <span class="interest-tag">Puzzle Solver</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════════════════════════
+       MAIN
+  ═══════════════════════════════════ -->
+  <main class="main">
+
+    <!-- Experience -->
+    <div class="section">
+      <div class="sec-title">Experience</div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Software Engineer</span>
+          <span class="exp-period">Mar 2021 – Present</span>
+        </div>
+        <div class="exp-company">Peoplewalking</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Leading the team for client <strong>Zertiban</strong>, coordinating daily stand-ups and delivering tasks collaboratively.</li>
+          <li class="exp-bullet">Led technical design and development of multiple features for <strong>Xpertopolis</strong>, delivering high-quality products on time.</li>
+          <li class="exp-bullet">Key role in designing a centralized application for <strong>ANCERT</strong> (Agency of Certification, Spain), streamlining operations.</li>
+          <li class="exp-bullet">Developed a user-friendly app for <strong>Navarra Clinic University</strong> exceeding client expectations.</li>
+          <li class="exp-bullet">Automated build, test, and deploy pipelines following <strong>CI/CD</strong> guidelines using <strong>Jenkins</strong>.</li>
+          <li class="exp-bullet">Facilitated <strong>React JS</strong> boot camps for junior developers; developed reusable component libraries.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-tag">Java</span><span class="tech-tag">Spring Boot</span><span class="tech-tag">Docker</span>
+          <span class="tech-tag">React JS</span><span class="tech-tag">Angular</span><span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Node</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Jenkins</span>
+          <span class="tech-tag">Jira</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Java Developer</span>
+          <span class="exp-period">Aug 2023 – Nov 2023</span>
+        </div>
+        <div class="exp-company">Cognicore</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Developed microservices for the <strong>Cognicore</strong> application at startup Human Data Manager.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-tag">Java</span><span class="tech-tag">Spring Boot</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Python Developer</span>
+          <span class="exp-period">Aug 2022 – Present</span>
+        </div>
+        <div class="exp-company">Matcom Grader</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Enhanced platform design and functionalities of the Matcom Online Grader (MOG) platform used in the Caribbean region.</li>
+          <li class="exp-bullet">Migrated problem writing to Markdown; created a custom logging module.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-tag">Python</span><span class="tech-tag">Django</span><span class="tech-tag">React JS</span><span class="tech-tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">ICPC Executive Director</span>
+          <span class="exp-period">Nov 2021 – Mar 2022</span>
+        </div>
+        <div class="exp-company">Universidad de Oriente</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Oversaw preparation and execution of ICPC contests; led teams and coordinated people.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Computer Science Professor</span>
+          <span class="exp-period">Sep 2019 – Mar 2022</span>
+        </div>
+        <div class="exp-company">Universidad de Oriente</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Taught <strong>Logic Math</strong> and <strong>Data Structures &amp; Algorithms</strong>.</li>
+          <li class="exp-bullet">Received the <strong>CITMA Award for Young Researchers</strong> in 2019.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Freelance Full Stack Developer</span>
+          <span class="exp-period">Oct 2020 – Mar 2021</span>
+        </div>
+        <div class="exp-company">Freelance</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Developed responsive websites for small businesses using agile (<strong>XP</strong>) methodology.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-tag">React JS</span><span class="tech-tag">Bootstrap 4</span><span class="tech-tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">C++ Developer</span>
+          <span class="exp-period">Sep 2017 – Jun 2021</span>
+        </div>
+        <div class="exp-company">Centro de Biofísica Médica</div>
+        <ul class="exp-bullets">
+          <li class="exp-bullet">Contributed to <strong>Imagis</strong>, a medical imaging software; developed 10+ features across design, visualization, and image segmentation.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-tag">C++</span><span class="tech-tag">Java</span><span class="tech-tag">VTK</span><span class="tech-tag">Qt Framework</span><span class="tech-tag">ITK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates -->
+    <div class="section">
+      <div class="sec-title">Certificates</div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-title">Claude Code in Action</div>
+          <div class="cert-meta">Anthropic · Apr 2025</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">Problem Solving Certificate</div>
+          <div class="cert-meta">HackerRank · Nov 2020</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">React Certificate</div>
+          <div class="cert-meta">HackerRank · Dec 2020</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">JavaScript Certificate</div>
+          <div class="cert-meta">HackerRank · Apr 2022</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">Flutter &amp; Dart Certificate</div>
+          <div class="cert-meta">Udemy · Apr 2024</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">EF SET English (B2)</div>
+          <div class="cert-meta">EF Standard English Test · Feb 2023</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+</body>
+</html>
